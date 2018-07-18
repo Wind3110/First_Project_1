@@ -1,0 +1,40 @@
+﻿@model List<webbanhang.Models.SANPHAM>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div style="text-align: right;margin-right:20px;">
+        @if (Session["Logedadname"] != null)
+        {
+            <p>Chào ADMIN <span style="color:#ff0000;font-weight:bold;">@Session["Logedadname"].ToString()</span></p>
+        }
+    </div>
+    <div style="float:left">
+        <p><h1 style="float:left">QUẢN LÝ SẢN PHẨM</h1><br /></p><br />
+        <p style="float:left"><a href="~/Home/Index" target="_blank">Xem trang người dùng</a></p>
+       
+        <table style="text-align:center">
+            
+            @foreach (var n in Model)
+            {
+                <tr >
+                    <td style="border:1px solid #000">@n.maSP</td>
+                    <td style="border:1px solid #000">@n.tenSP</td>
+                    <td style="border:1px solid #000">@n.giahientai</td>
+                    <td style="border:1px solid #000">@n.xuatsu</td>
+                    <td style="border:1px solid #000">@Html.ActionLink("XÓA", "Delete", new { id=@n.maSP})</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

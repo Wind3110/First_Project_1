@@ -1,0 +1,52 @@
+﻿@model webbanhang.Models.LoginFormModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Đăng nhập</h2>
+
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @*@Html.ValidationSummary(true)*@
+    if(ViewBag.Messenge != null)
+    {
+        <div>
+            @ViewBag.Messenge
+        </div>
+    }
+
+    <fieldset>
+        @*<legend>LoginFormModel</legend>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.password)
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
+        </div>
+
+        <p>
+            <input type="submit" value="Đăng nhập" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    <a href="@Url.Action("Index","Home")">Quay về trang chủ</a>
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

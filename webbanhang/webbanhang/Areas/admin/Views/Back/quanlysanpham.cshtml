@@ -1,0 +1,34 @@
+﻿@model List<webbanhang.Models.SANPHAM>
+@{
+    ViewBag.Title = "quanlysanpham";
+    Layout = "~/Areas/admin/Views/Shared/_layout_admin.cshtml";
+}
+
+<div style="float:left">
+    <div>
+        <p><h1 style="float:left">QUẢN LÝ SẢN PHẨM</h1></p><br /><br />
+        @*<p><h4 style="float:left;color:red;">@ViewBag.Message</h4></p>*@
+    </div>
+    <table style="text-align:center">
+        <tr>
+            <td style="border:1px solid #000;font-weight:bold;">Mã sản phẩm</td>
+            <td style="border: 1px solid #000;font-weight:bold;">Tên sản phẩm</td>
+            <td style="border: 1px solid #000; font-weight: bold;">Giá</td>
+            <td style="border: 1px solid #000; font-weight: bold;">Thương hiệu</td>
+        </tr>
+        @foreach (var n in Model)
+        {
+
+            <tr>
+
+                <td style="border:1px solid #000">@n.maSP</td>
+                <td style="border:1px solid #000">@n.tenSP</td>
+                <td style="border:1px solid #000">@n.giahientai</td>
+                <td style="border:1px solid #000">@n.xuatsu</td>
+                <td style="border:1px solid #000">@Html.ActionLink("XÓA", "Delete", new { id = @n.maSP })</td>
+                <td style="border:1px solid #000"></td>
+            </tr>
+        }
+    </table><br /><br /><br />
+</div>
+

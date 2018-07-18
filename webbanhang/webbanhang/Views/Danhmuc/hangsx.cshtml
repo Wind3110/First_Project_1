@@ -1,0 +1,22 @@
+﻿@model List<webbanhang.Models.SANPHAM>
+
+
+@*@foreach (var m in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title"><a href="@Url.Action("phanloai_sp","Home",new {madm =@m.maDM})">@m.tenDM</a></h4>
+        </div>
+    </div>
+}*@
+
+<div class="brands-name">
+
+    <ul class="nav nav-pills nav-stacked">
+@foreach (var n in Model)
+{
+        <li><a href="@Url.Action("phanloai_hangsx", "Home", new { hangsx = @n.xuatsu })"> <span class="pull-right"></span>@n.xuatsu</a></li>
+}
+
+    </ul>
+</div>

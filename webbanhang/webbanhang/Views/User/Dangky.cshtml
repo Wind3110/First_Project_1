@@ -1,0 +1,102 @@
+﻿@model webbanhang.Models.DangkyFormModel
+
+@{
+    ViewBag.Title = "Dangky";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-4">
+    <div class="signup-form">
+        @using (Html.BeginForm("Dangky", "User", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group" style="color:red">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success">@TempData["success"]</div>
+                }
+            </div>
+            <fieldset>
+                <legend>Đăng ký tài khoản mới</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.name)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.name)
+                    @Html.ValidationMessageFor(model => model.name)
+                </div><br />
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Username)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Username)
+                    @Html.ValidationMessageFor(model => model.Username)
+                </div><br />
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.password)
+                </div>
+                <div class="editor-field">
+                    @Html.PasswordFor(model => model.password)
+                    @Html.ValidationMessageFor(model => model.password)
+                </div><br />
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.confirmpassword)
+                </div>
+                <div class="editor-field">
+                    @Html.PasswordFor(model => model.confirmpassword)
+                    @Html.ValidationMessageFor(model => model.confirmpassword)
+                </div><br />
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Email)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div><br />
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.address)
+                </div>
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.address)
+                    @Html.ValidationMessageFor(model => model.address)
+                </div><br />
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SDT)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.SDT)
+                    @Html.ValidationMessageFor(model => model.SDT)
+                </div><br />
+                <p>
+                    <button type="submit" class="btn btn-default">Đăng ký</button>
+                </p>
+            </fieldset>
+        }
+    </div>
+    <div>
+        <a href="@Url.Action("Index", "Home")">Quay về trang chủ</a>
+    </div>
+    </div>
+    
+
+
+
+    @*<div class="col-sm-4">
+        <div class="signup-form">
+            <!--sign up form-->
+            <h2>New User Signup!</h2>
+            <form action="#">
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email Address">
+                <input type="password" placeholder="Password">
+                <button type="submit" class="btn btn-default">Signup</button>
+            </form>
+        </div><!--/sign up form-->
+    </div>*@

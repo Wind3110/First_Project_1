@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="laptrinhwebModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityType Name="DANHMUC">
+    <Key>
+      <PropertyRef Name="maDM" />
+    </Key>
+    <Property Name="maDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tenDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="mota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SANPHAMs" Relationship="Self.FK_SANPHAM_DANHMUC" FromRole="DANHMUC" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="HOADON">
+    <Key>
+      <PropertyRef Name="maHD" />
+    </Key>
+    <Property Name="maHD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="maND" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ngaylap" Type="DateTime" Precision="3" />
+    <Property Name="DC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NGUOIDUNG" Relationship="Self.FK_HOADON_NGUOIDUNG" FromRole="HOADON" ToRole="NGUOIDUNG" />
+    <NavigationProperty Name="TTHOADONs" Relationship="Self.FK_TTHOADON_HOADON1" FromRole="HOADON" ToRole="TTHOADON" />
+  </EntityType>
+  <EntityType Name="NGUOIDUNG">
+    <Key>
+      <PropertyRef Name="maND" />
+    </Key>
+    <Property Name="maND" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="tenND" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="Decimal" Precision="12" Scale="0" />
+    <Property Name="DC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="HOADONs" Relationship="Self.FK_HOADON_NGUOIDUNG" FromRole="NGUOIDUNG" ToRole="HOADON" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="maSP" />
+    </Key>
+    <Property Name="maSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tenSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="giahientai" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="mota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="xuatsu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="maDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="hinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DANHMUC" Relationship="Self.FK_SANPHAM_DANHMUC" FromRole="SANPHAM" ToRole="DANHMUC" />
+    <NavigationProperty Name="TTHOADONs" Relationship="Self.FK_TTHOADON_SANPHAM" FromRole="SANPHAM" ToRole="TTHOADON" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TTHOADON">
+    <Key>
+      <PropertyRef Name="maTTHD" />
+    </Key>
+    <Property Name="maHD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="maSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SL" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="giamua" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="maTTHD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="HOADON" Relationship="Self.FK_TTHOADON_HOADON1" FromRole="TTHOADON" ToRole="HOADON" />
+    <NavigationProperty Name="SANPHAM" Relationship="Self.FK_TTHOADON_SANPHAM" FromRole="TTHOADON" ToRole="SANPHAM" />
+  </EntityType>
+  <Association Name="FK_SANPHAM_DANHMUC">
+    <End Role="DANHMUC" Type="Self.DANHMUC" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DANHMUC">
+        <PropertyRef Name="maDM" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="maDM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOADON_NGUOIDUNG">
+    <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="0..1" />
+    <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NGUOIDUNG">
+        <PropertyRef Name="maND" />
+      </Principal>
+      <Dependent Role="HOADON">
+        <PropertyRef Name="maND" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TTHOADON_HOADON1">
+    <End Role="HOADON" Type="Self.HOADON" Multiplicity="0..1" />
+    <End Role="TTHOADON" Type="Self.TTHOADON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOADON">
+        <PropertyRef Name="maHD" />
+      </Principal>
+      <Dependent Role="TTHOADON">
+        <PropertyRef Name="maHD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TTHOADON_SANPHAM">
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="0..1" />
+    <End Role="TTHOADON" Type="Self.TTHOADON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="maSP" />
+      </Principal>
+      <Dependent Role="TTHOADON">
+        <PropertyRef Name="maSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="laptrinhwebEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DANHMUCs" EntityType="Self.DANHMUC" />
+    <EntitySet Name="HOADONs" EntityType="Self.HOADON" />
+    <EntitySet Name="NGUOIDUNGs" EntityType="Self.NGUOIDUNG" />
+    <EntitySet Name="SANPHAMs" EntityType="Self.SANPHAM" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TTHOADONs" EntityType="Self.TTHOADON" />
+    <AssociationSet Name="FK_SANPHAM_DANHMUC" Association="Self.FK_SANPHAM_DANHMUC">
+      <End Role="DANHMUC" EntitySet="DANHMUCs" />
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOADON_NGUOIDUNG" Association="Self.FK_HOADON_NGUOIDUNG">
+      <End Role="NGUOIDUNG" EntitySet="NGUOIDUNGs" />
+      <End Role="HOADON" EntitySet="HOADONs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TTHOADON_HOADON1" Association="Self.FK_TTHOADON_HOADON1">
+      <End Role="HOADON" EntitySet="HOADONs" />
+      <End Role="TTHOADON" EntitySet="TTHOADONs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TTHOADON_SANPHAM" Association="Self.FK_TTHOADON_SANPHAM">
+      <End Role="SANPHAM" EntitySet="SANPHAMs" />
+      <End Role="TTHOADON" EntitySet="TTHOADONs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,73 @@
+﻿@model webbanhang.Models.LoginFormModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-4 col-sm-offset-1">
+    <div class="login-form">
+      
+        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @*@Html.ValidationSummary(true)*@
+            if (ViewBag.Messenge != null)
+            {
+                <div>
+                    @ViewBag.Messenge
+                </div>
+            }
+
+            <fieldset>
+                <legend>Đăng nhập</legend>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Email)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.password)
+                </div>
+                <div class="editor-field">
+                    @Html.PasswordFor(model => model.password)
+                    @Html.ValidationMessageFor(model => model.password)
+                </div>
+
+                <p>
+                    <button type="submit" class="btn btn-default">Đăng nhập</button>
+                </p>
+            </fieldset>
+        }
+
+        <div>
+            <a href="@Url.Action("Index","Home")">Quay về trang chủ</a>
+        </div>
+
+        </div>
+    </div>
+
+    @*@section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }*@
+
+
+    @*<div class="col-sm-4 col-sm-offset-1">
+        <div class="login-form">
+            <!--login form-->
+            <h2>Login to your account</h2>
+            <form action="#">
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email Address">
+                <span>
+                    <input type="checkbox" class="checkbox">
+                    Keep me signed in
+                </span>
+                <button type="submit" class="btn btn-default">Login</button>
+            </form>
+        </div><!--/login form-->
+    </div>*@
